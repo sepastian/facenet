@@ -49,7 +49,7 @@ images
 
 Now, align faces using the following command.
 
-```
+```shell
 cd /path/to/facenet
 python src/align/align_dataset_mtcnn.py \
   ~/images/raw/ \
@@ -62,7 +62,7 @@ _(You certainly set `PYTHONPATH`, didn't you? See section above.)_
 
 Or, in parallel, using 4 processes.
 
-```
+```shell
 for N in {1..4}; do \
 python src/align/align_dataset_mtcnn.py \
   ~/images/raw/ \
@@ -87,13 +87,13 @@ Fingerprint will be used by the classifier trained here, to classify faces, i.e.
 
 The latest pre-trained models can be found [here](https://github.com/davidsandberg/facenet#pre-trained-models).
 
-```
+```shell
 mkdir /path/to/facenet/models/
 # Download and extract https://drive.google.com/open?id=1EXPBSXwTaqrSC0OhUdXNmKSh9qJUQ55- into /path/to/facenet/models/
 # You should now have /path/to/facenet/models/20180402-114759/.
 ```
 
-```
+```shell
 cd /path/to/facenet/
 python src/classifier.py TRAIN \
   images/train_mtcnnpy_182/ \
@@ -110,7 +110,7 @@ This assumes that you have prepared a set of test/validation images,
 in the same way as described above, under *Face Alignment*.
 The aligned faces you wish to recognize are stored in `images/test_mtcnnpy_182`.
 
-```
+```shell
 cd /path/to/facenet/
 python src/classifier.py CLASSIFY \
   images/test_mtcnnpy_182/ \
