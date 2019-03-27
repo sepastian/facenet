@@ -10,6 +10,17 @@ pip install tensorflow
 
 # Clone David Sandberg's facenet repo.
 git clone https://github.com/davidsandberg/facenet.git
+
+# Set PYTHONPATH
+export PYTHONPATH=/path/to/facenet/src
+
+# ... or use https://direnv.net/ for setting PYTHONPATH;
+# Direnv loads env variables from .envrc, whenever entering a directory.
+#
+# edit /path/to/facenet/.envrc:
+export PYTHONPATH=$(pwd)/src
+# don't forget to allow updated .envrc
+direnv allow
 ```
 
 ## 2. Face Alignment
@@ -46,6 +57,8 @@ python src/align/align_dataset_mtcnn.py \
   --image_size 182 \
   --margin 44
 ```
+
+_(You certainly set `PYTHONPATH`, didn't you? See section above.)_
 
 Or, in parallel, using 4 processes.
 
