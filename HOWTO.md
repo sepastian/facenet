@@ -139,6 +139,18 @@ mkdir /path/to/facenet/models/
 # You should now have /path/to/facenet/models/20180402-114759/.
 ```
 
+Training requires a training set, which is located at `images/train_mtcnnpy_182`. Validating the model after training requires a test set. Extract some images (~ 10 %) from `images/train_mtcnnpy_182` into `images/test_mtcnnpy_182`.
+
+```shell
+cd images
+mkdir -p test_mtcnnpy_182/bandera
+mkdir -p test_mtcnnpy_182/hitler
+find train_mtcnnpy_182/bandera/ -maxdepth 1 -name '*.png' | shuf | head -10
+find train_mtcnnpy_182/hitler/ -maxdepth 1 -name '*.png' | shuf | head -10
+```
+
+Now train.
+
 ```shell
 cd /path/to/facenet/
 python src/classifier.py TRAIN \
