@@ -4,7 +4,7 @@ This guide describes how to employ [David Sandberg's Facenet Implementation](htt
 
 ## 1. Installation/Dependencies
 
-```
+```shell
 # Install Tensorflow using pip
 pip install tensorflow
 
