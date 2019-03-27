@@ -74,6 +74,20 @@ python src/align/align_dataset_mtcnn.py \
 & done
 ```
 
+This will detect the largest face in each image. To detect multiple faces in an image, add the `--detect_multiple_faces` parameter as follows.
+
+```shell
+cd /path/to/facenet
+python src/align/align_dataset_mtcnn.py \
+  ~/images/raw
+  ~/images/train_mtcnnpy_182 \
+  --image_size 182 \
+  --margin 44 \
+  --detect_multiple_faces 1
+```
+
+For each face detected, a file named `~/images/train_mtcnnpy_182/NAME_N.png` will be written.
+
 ## 3. Training Your Own Classifier
 
 From https://github.com/davidsandberg/facenet/wiki/Train-a-classifier-on-own-images.
