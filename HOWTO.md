@@ -33,7 +33,7 @@ this requires aligning faces, i.e. automatically cropping all parts of an image 
 All images files must be structured as follows.
 
 ```
-images
+/path/to/facenet/images
   raw
     person1
       person1_001.jpg
@@ -52,8 +52,8 @@ Now, align faces using the following command.
 ```shell
 cd /path/to/facenet
 python src/align/align_dataset_mtcnn.py \
-  ~/images/raw/ \
-  ~/images/train_mtcnnpy_182/ \
+  images/raw/ \
+  images/train_mtcnnpy_182/ \
   --image_size 182 \
   --margin 44
 ```
@@ -65,8 +65,8 @@ Or, in parallel, using 4 processes.
 ```shell
 for N in {1..4}; do \
 python src/align/align_dataset_mtcnn.py \
-  ~/images/raw/ \
-  ~/images/train_mtcnnpy_182/ \
+  images/raw/ \
+  images/train_mtcnnpy_182/ \
   --image_size 182 \
   --margin 44 \
   --random_order \
@@ -86,7 +86,37 @@ python src/align/align_dataset_mtcnn.py \
   --detect_multiple_faces 1
 ```
 
-For each face detected, a file named `~/images/train_mtcnnpy_182/NAME_N.png` will be written.
+Or, detect multiple faces using all available CPUs (requires `bc`, which should come with Linux by default).
+
+```shell
+for N in {1..$(nproc)}
+do 
+  python src/align/align_dataset_mtcnn.py \
+  images/raw/ 
+  images/train_mtcnnpy_182 \
+  --image_size 182 \
+  --margin 44 \
+  --random_order \
+  --gpu_memory_fraction $(echo "scale=2;1/$(nproc)"|bc) \
+  --detect_multiple_faces 1 \
+& done
+```
+
+For each face detected, a file named `~/images/train_mtcnnpy_182/NAME_N.png` will be written. Since all faces in the image have been detected, some faces may not belong to the person wanted. To select the faces of the person sought only, `feh` can be used.
+
+First, move all images extracted from `~/images/train_mtcnnpy_182/` to `~/images/train_mtcnnpy_182/ALL`. Then use `feh` to copy relevant images one directory up, from `~/images/train_mtcnnpy_182/ALL` to `~/images/train_mtcnnpy_182/`. Now, `~/images/train_mtcnnpy_182/` contains only relevant images.
+
+```
+cd ~/images/train_mtcnnpy_182/
+mkdir ALL
+mv *.png ALL
+cd ALL
+feh -A "cp %f .."
+# Now cycle through all images using the arrow keys;
+# to select an image (i.e. copy one dir up), press '0';
+# press 'q' to quit feh;
+# now, all images selected are in ~/images/train_mtcnnpy_182/.
+```
 
 ## 3. Training Your Own Classifier
 
