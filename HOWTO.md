@@ -102,11 +102,13 @@ do
 & done
 ```
 
+### Selecting Relevant Images
+
 For each face detected, a file named `~/images/train_mtcnnpy_182/NAME_N.png` will be written. Since all faces in the image have been detected, some faces may not belong to the person wanted. To select the faces of the person sought only, `feh` can be used.
 
 First, move all images extracted from `~/images/train_mtcnnpy_182/` to `~/images/train_mtcnnpy_182/ALL`. Then use `feh` to copy relevant images one directory up, from `~/images/train_mtcnnpy_182/ALL` to `~/images/train_mtcnnpy_182/`. Now, `~/images/train_mtcnnpy_182/` contains only relevant images.
 
-```
+```shell
 cd ~/images/train_mtcnnpy_182/
 mkdir ALL
 mv *.png ALL
